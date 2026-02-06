@@ -1,10 +1,14 @@
-from typing_extensions import TypedDict,List
+from typing import TypedDict, List
+from langchain_core.messages import BaseMessage
+from typing_extensions import Annotated
 from langgraph.graph.message import add_messages
-from typing import Annotated
 
+class State(TypedDict, total=False):
+    # LangGraph required
+    messages: Annotated[List[BaseMessage], add_messages]
 
-class State(TypedDict):
-    """
-    Represent the structure of the state used in graph
-    """
-    messages: Annotated[List,add_messages]
+    # AI News specific
+    frequency: str
+    news_data: list
+    summary: str
+    filename: str
